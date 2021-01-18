@@ -27,16 +27,21 @@
             <div class="container">
                 <img class="logo" src="{% static 'images/logo_pur_beurre.png' %}" />
 
-                <a class="navbar-brand js-scroll-trigger" href="#page-top">Pur Beurre</a>
+                <a class="navbar-brand js-scroll-trigger" href="/">Pur Beurre</a>
                 <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
                 <div class="collapse navbar-collapse" id="navbarResponsive">
                     <ul class="navbar-nav ml-auto my-2 my-lg-0">
                         <form class="form-inline">
                             <input class="form-control mr-sm-2" type="search" placeholder="Rechercher" aria-label="Search">
                         </form>
-                        <li class="nav-item"><a class="nav-link js-scroll-trigger" href="#about">Mon compte</a></li>
-                        <li class="nav-item"><a class="nav-link js-scroll-trigger" href="#services">Mes aliments</a></li>
-                        <li class="nav-item"><a class="nav-link js-scroll-trigger" href="#portfolio">Déconnexion</a></li>
+                        {% if user.is_authenticated %}
+                            <li class="nav-item"><a class="nav-link js-scroll-trigger" href="{% url 'profile' %}">Mon compte</a></li>
+                            <li class="nav-item"><a class="nav-link js-scroll-trigger" href="{% url 'myfood' %}">Mes aliments</a></li>
+                            <li class="nav-item"><a class="nav-link js-scroll-trigger" href="{% url 'logout' %}">Déconnexion</a></li>
+                        {% else %}
+                            <li class="nav-item"><a class="nav-link js-scroll-trigger" href="{% url 'login' %}">Connexion</a></li>
+                            <li class="nav-item"><a class="nav-link js-scroll-trigger" href="{% url 'register' %}">Inscription</a></li>
+                        {% endif %}
                     </ul>
                 </div>
             </div>
