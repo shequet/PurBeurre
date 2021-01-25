@@ -10227,3 +10227,7 @@ header.masthead {
 .masthead > .bg-color-biscuit{
     margin-top: 2em;
 }
+
+.img-product{
+    max-height: 400px;
+}

@@ -126,3 +126,6 @@ STATICFILES_DIRS = [
 ]
 
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
+
+OPENFOODFACTS_URL = 'https://fr.openfoodfacts.org'
+OPENFOODFACTS_PAGE_SIZE = 10

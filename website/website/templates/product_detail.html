@@ -14,11 +14,14 @@
 
 <section class="page-section">
     <div class="container">
+
+        <img src="{{ product.image }}" class="card-img-top" alt="...">
+
         <div class="row">
             <div class="col-lg-6 col-md-12 text-center">
                 <div class="mt-5">
                     <h2>Nutriscore</h2>
-                    <h3>ABCDE</h3>
+                    <h3>{{ product.nutri_score }}</h3>
                 </div>
             </div>
             <div class="col-lg-6 col-md-12 text-center">
@@ -29,7 +32,7 @@
         </div>
     </div>
     <div class="text-center">
-       <a href="" class="btn btn-primary">Voir la fiche d'OpenFoodFacts</a>
+       <a href="{{ product.link }}" class="btn btn-primary" target="_blank">Voir la fiche d'OpenFoodFacts</a>
     </div>
 
 

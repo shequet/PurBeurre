@@ -14,28 +14,39 @@
 
 <section class="page-section">
     <div class="container">
+        {% if products|length > 1 %}
         <h2 class="text-center mt-0">Vous pouvez remplacer cet aliment par :</h2>
         <hr class="divider my-2" />
         <br>
          <div class="row row-cols-1 row-cols-md-3">
-        {% for food in foods %}
+        {% for product in products %}
 
            <div class="col">
                 <div class="card m-2">
-                  <a href="{% url 'product_detail' food.id %}">
-                      <img src="{{ food.photo }}" class="card-img-top" alt="...">
+                  <a href="{% url 'product_detail' product.id %}">
+                      <img src="{{ product.image }}" class="card-img-top img-product" alt="...">
                   </a>
                   <div class="card-body text-center">
-                    <h5 class="card-title">{{ food.name }}</h5>
+                     <span class="badge badge-pill badge-info">{{ product.nutri_score }}</span>
+                    <h5 class="card-title">{{ product.name|truncatechars:25 }}</h5>
                     {% if user.is_authenticated %}
                       <a href="#" class="btn btn-primary"><i class="fa fa-save"></i> Sauvegarder</a>
                     {% endif %}
                   </div>
                 </div>
             </div>
-
         {% endfor %}
         </div>
+        {% else %}
+        <h2 class="text-center mt-0">Aucun résultat :</h2>
+        <hr class="divider my-2" />
+        <br>
+
+        <div class="alert alert-warning" role="alert">
+          Nous n'avons pas trouvé de produits.
+        </div>
+
+        {% endif %}
 
     </div>
 </section>
