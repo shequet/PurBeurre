@@ -10223,3 +10223,7 @@ header.masthead {
 .page-section {
     padding: 4rem;
 }
+
+.masthead > .bg-color-biscuit{
+    margin-top: 2em;
+}
