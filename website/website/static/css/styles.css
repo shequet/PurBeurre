@@ -3955,6 +3955,7 @@ input[type=button].btn-block {
   align-items: center;
   justify-content: space-between;
   padding: 0.5rem 1rem;
+  border-bottom: 1px solid grey;
 }
 .navbar .container,
 .navbar .container-fluid,
@@ -10197,10 +10198,32 @@ header.masthead {
     color: #E8A75D;
 }
 
+#mainNav .navbar-nav .nav-item .nav-link{
+    color: #E8A75D !important;
+}
+#mainNav .navbar-nav .nav-item .nav-link:hover{
+    color: #f4623a !important;
+}
+
 .shadow {
     text-shadow: #000000 2px 2px, #000000 -2px 2px, #000000 -2px -2px, #000000 2px -2px;
 }
 
 .well{
     background-color: rgba(0,0,0,0.7);
+}
+
+.secondhead {
+    padding-top: 7rem;
+    background-color: #345A61;
+    color: #86EBE6;
+    height:200px;
+}
+
+.page-section {
+    padding: 4rem;
+}
+
+.masthead > .bg-color-biscuit{
+    margin-top: 2em;
 }

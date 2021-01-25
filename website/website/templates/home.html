@@ -2,7 +2,7 @@
 {% load static %}
 
 {% block title_page %}Pur Beurre - Du gras, oui, mais de qualité !{% endblock %}
-
+{% load crispy_forms_tags %}
 
 {% block content %}
 
@@ -16,8 +16,9 @@
             <div class="col-lg-8 align-self-baseline">
                 <h2 class="text-white-75 font-weight-light mb-5 color-biscuit well">Trouvez un produit de substitution pour ceux que vous consommez tous les jours.</h2>
 
-                <form class="input-group input-group-lg">
-                  <input class="form-control me-2" type="search" placeholder="Produit" aria-label="Produit" aria-describedby="inputGroup-sizing-lg">
+                <form class="input-group input-group-lg" method="POST" action="{% url 'product_search' %}">
+                  {% csrf_token %}
+                  <input type="text" name="name" maxlength="128" type="search" placeholder="Produit" aria-label="Produit" aria-describedby="inputGroup-sizing-lg" class="form-control me-2" required="" id="id_name">
                   <button class="input-group-text btn btn-primary" id="inputGroup-sizing-lg" >Chercher</button>
                 </form>
 

@@ -27,16 +27,23 @@
             <div class="container">
                 <img class="logo" src="{% static 'images/logo_pur_beurre.png' %}" />
 
-                <a class="navbar-brand js-scroll-trigger" href="#page-top">Pur Beurre</a>
+                <a class="navbar-brand js-scroll-trigger" href="/">Pur Beurre</a>
                 <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
                 <div class="collapse navbar-collapse" id="navbarResponsive">
                     <ul class="navbar-nav ml-auto my-2 my-lg-0">
-                        <form class="form-inline">
-                            <input class="form-control mr-sm-2" type="search" placeholder="Rechercher" aria-label="Search">
+                        <form class="form-inline" method="POST" action="{% url 'product_search' %}">
+                            {% csrf_token %}
+                            <input name="name" class="form-control mr-sm-2" type="search" placeholder="Rechercher" aria-label="Search">
                         </form>
-                        <li class="nav-item"><a class="nav-link js-scroll-trigger" href="#about">Mon compte</a></li>
-                        <li class="nav-item"><a class="nav-link js-scroll-trigger" href="#services">Mes aliments</a></li>
-                        <li class="nav-item"><a class="nav-link js-scroll-trigger" href="#portfolio">Déconnexion</a></li>
+
+                        {% if user.is_authenticated %}
+                            <li class="nav-item"><a class="nav-link {% if request.path == '/accounts/profile/' %}active{% endif %}" href="{% url 'profile' %}" title="Mon compte"><i class="fa fa-user h3"></i></a></li>
+                            <li class="nav-item"><a class="nav-link {% if request.path == '/myfood/' %}active{% endif %}" href="{% url 'myfood' %}" title="Mes aliments"><i class="fa fa-carrot h3"></i></a></li>
+                            <li class="nav-item"><a class="nav-link {% if request.path == '/accounts/logout/' %}active{% endif %}" href="{% url 'logout' %}" title="Deconnexion"><i class="fa fa-sign-out-alt h3"></i></a></li>
+                        {% else %}
+                            <li class="nav-item"><a class="nav-link {% if request.path == '/accounts/login/' %}active{% endif %}" href="{% url 'login' %}" title="Connexion"><i class="fa fa-user-shield h3"></i></a></li>
+                            <li class="nav-item"><a class="nav-link {% if request.path == '/accounts/logout/' %}active{% endif %}" href="{% url 'register' %}" title="Inscription"><i class="fa fa-user-plus h3"></i></a></li>
+                        {% endif %}
                     </ul>
                 </div>
             </div>

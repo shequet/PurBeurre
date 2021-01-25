@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title_page %}Déconnexion{% endblock %}
+
+
+{% block content %}
+<header class="masthead">
+    <div class="container bg-color-biscuit p-5 rounded">
+        <h2 class="text-center mt-0">Déconnexion</h2>
+        <hr class="divider my-2" />
+        <a href="{% url 'login'%}" class="btn btn-primary">Cliquez ici pour vous reconnecter</a>
+
+    </div>
+</header>
+
+{% endblock %}
