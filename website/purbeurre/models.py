@@ -10,6 +10,9 @@ class Product(models.Model):
     nutri_score = models.CharField(null=False, max_length=1)
     image = models.CharField(null=True, max_length=1024)
 
+    class Meta:
+        ordering = ['name']
+
     def __str__(self):
         return '%s' % (self.name, )
 
@@ -19,6 +22,7 @@ class Category(models.Model):
 
     class Meta:
         verbose_name_plural = 'categories'
+        ordering = ['name']
 
     def __str__(self):
         return '%s' % (self.name, )
@@ -26,6 +30,9 @@ class Category(models.Model):
 
 class Brand(models.Model):
     name = models.CharField(null=False, max_length=255, db_index=True, unique=True)
+
+    class Meta:
+        ordering = ['name']
 
     def __str__(self):
         return '%s' % (self.name,)
@@ -38,6 +45,9 @@ class ProductBrand(models.Model):
     class Meta:
         unique_together = ('product', 'brand', )
 
+    def __str__(self):
+        return '%s / %s' % (self.product.name, self.brand.name)
+
 
 class ProductCategory(models.Model):
     product = models.ForeignKey(Product, related_name='product_category_products', on_delete=models.CASCADE)
@@ -47,9 +57,15 @@ class ProductCategory(models.Model):
         unique_together = ('product', 'category', )
         verbose_name_plural = 'productCategories'
 
+    def __str__(self):
+        return '%s / %s' % (self.product.name, self.category.name)
+
 
 class Store(models.Model):
     name = models.CharField(null=False, max_length=255, db_index=True, unique=True)
+
+    class Meta:
+        ordering = ['name']
 
     def __str__(self):
         return '%s' % (self.name, )
@@ -61,6 +77,9 @@ class ProductStore(models.Model):
 
     class Meta:
         unique_together = ('product', 'store', )
+
+    def __str__(self):
+        return '%s / %s' % (self.product.name, self.store.name)
 
 
 class ProductSubstitute(models.Model):

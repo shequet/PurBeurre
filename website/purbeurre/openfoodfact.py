@@ -49,7 +49,6 @@ class OpenFoodFacts:
             data = r.json()
             if len(data['products']) > 0:
                 products.extend(data['products'])
-                return products
                 print('--Page:[{page}]--Total products:[{products}]--'.format(
                     page=page,
                     products=len(products)))
