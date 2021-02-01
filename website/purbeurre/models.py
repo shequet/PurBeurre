@@ -2,21 +2,6 @@ from django.contrib.auth.models import User
 from django.db import models
 
 
-class Product(models.Model):
-    name = models.CharField(null=False, max_length=128, db_index=True)
-    code = models.CharField(null=False, max_length=13, unique=True)
-    link = models.CharField(null=True, max_length=1024)
-    quantity = models.CharField(null=True, max_length=20)
-    nutri_score = models.CharField(null=False, max_length=1)
-    image = models.CharField(null=True, max_length=1024)
-
-    class Meta:
-        ordering = ['name']
-
-    def __str__(self):
-        return '%s' % (self.name, )
-
-
 class Category(models.Model):
     name = models.CharField(null=False, max_length=255, db_index=True, unique=True)
 
@@ -28,58 +13,31 @@ class Category(models.Model):
         return '%s' % (self.name, )
 
 
-class Brand(models.Model):
-    name = models.CharField(null=False, max_length=255, db_index=True, unique=True)
+class Product(models.Model):
+    name = models.CharField(null=False, max_length=128, db_index=True)
+    code = models.CharField(null=False, max_length=13, unique=True)
+    link = models.CharField(null=True, max_length=1024)
+    quantity = models.CharField(null=True, max_length=20)
+    nutri_score = models.CharField(null=False, max_length=1)
+    image = models.CharField(null=True, max_length=1024)
 
-    class Meta:
-        ordering = ['name']
+    nutriment_energy = models.FloatField(null=True)
+    nutriment_sugars = models.FloatField(null=True)
+    nutriment_salt = models.FloatField(null=True)
+    nutriment_fat = models.FloatField(null=True)
+    nutriment_saturated_fat = models.FloatField(null=True)
+    nutriment_sodium = models.FloatField(null=True)
+    nutriment_proteins = models.FloatField(null=True)
+    nutriment_carbohydrates = models.FloatField(null=True)
+    nutriment_fiber = models.FloatField(null=True)
 
-    def __str__(self):
-        return '%s' % (self.name,)
-
-
-class ProductBrand(models.Model):
-    product = models.ForeignKey(Product, related_name='product_brand_products', on_delete=models.CASCADE)
-    brand = models.ForeignKey(Brand, related_name='product_brand_brands', on_delete=models.CASCADE)
-
-    class Meta:
-        unique_together = ('product', 'brand', )
-
-    def __str__(self):
-        return '%s / %s' % (self.product.name, self.brand.name)
-
-
-class ProductCategory(models.Model):
-    product = models.ForeignKey(Product, related_name='product_category_products', on_delete=models.CASCADE)
-    category = models.ForeignKey(Category, related_name='product_category_categories', on_delete=models.CASCADE)
-
-    class Meta:
-        unique_together = ('product', 'category', )
-        verbose_name_plural = 'productCategories'
-
-    def __str__(self):
-        return '%s / %s' % (self.product.name, self.category.name)
-
-
-class Store(models.Model):
-    name = models.CharField(null=False, max_length=255, db_index=True, unique=True)
+    category = models.ForeignKey(Category, related_name='products', on_delete=models.CASCADE, null=True, default=None)
 
     class Meta:
         ordering = ['name']
 
     def __str__(self):
         return '%s' % (self.name, )
-
-
-class ProductStore(models.Model):
-    product = models.ForeignKey(Product, related_name='product_store_products', on_delete=models.CASCADE)
-    store = models.ForeignKey(Store, related_name='product_store_stores', on_delete=models.CASCADE)
-
-    class Meta:
-        unique_together = ('product', 'store', )
-
-    def __str__(self):
-        return '%s / %s' % (self.product.name, self.store.name)
 
 
 class ProductSubstitute(models.Model):

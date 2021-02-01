@@ -5,28 +5,37 @@
 
 
 {% block content %}
-<header class="secondhead">
-    <div class="container">
-        <h2 class="text-center mt-0">[{{ search }}]</h2>
-        <hr class="divider my-2" />
-    </div>
+<header class="secondhead" style="background-image: url('{{ product.image }}');">
+
+        <h1 class="text-center text-uppercase font-weight-bold color-rigolo shadow">
+            {% if substitute_products|length > 1 %}
+            <span class="well">{{ product.name |truncatechars:30 }}
+            <img src="https://static.openfoodfacts.org/images/misc/nutriscore-{{ product.nutri_score|lower }}.svg"
+             alt="Note nutritionnelle NutriScore : {{ product.nutri_score }}"
+             class="img-nutriscore-header">
+                </span>
+            {% else %}
+                {{ search }}
+            {% endif %}
+
+        </h1>
+
 </header>
 
 <section class="page-section">
     <div class="container">
-        {% if products|length > 1 %}
+        {% if substitute_products|length > 1 %}
         <h2 class="text-center mt-0">Vous pouvez remplacer cet aliment par :</h2>
         <hr class="divider my-2" />
         <br>
          <div class="row row-cols-1 row-cols-md-3">
-        {% for product in products %}
+        {% for product in substitute_products %}
 
            <div class="col">
                 <div class="card m-4">
                   <a href="{% url 'product_detail' product.id %}">
                       <img src="{{ product.image }}" class="card-img-top img-product" alt="...">
                       <img src="https://static.openfoodfacts.org/images/misc/nutriscore-{{ product.nutri_score|lower }}.svg" alt="Note nutritionnelle NutriScore : {{ product.nutri_score }}" class="img-nutriscore">
-
                   </a>
                   <div class="card-body text-center">
                     <h6 class="card-title">{{ product.name|truncatechars:25 }}</h6>
@@ -39,13 +48,8 @@
         {% endfor %}
         </div>
         {% else %}
-        <h2 class="text-center mt-0">Aucun résultat :</h2>
+        <h2 class="text-center mt-0">Nous n'avons pas trouvé de produits pour votre recherche <u>{{ search }}</u></h2>
         <hr class="divider my-2" />
-        <br>
-
-        <div class="alert alert-warning" role="alert">
-          Nous n'avons pas trouvé de produits.
-        </div>
 
         {% endif %}
 

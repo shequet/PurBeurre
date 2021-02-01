@@ -10211,13 +10211,15 @@ header.masthead {
 
 .well{
     background-color: rgba(0,0,0,0.7);
+    padding: 15px;
 }
 
 .secondhead {
-    padding-top: 7rem;
+    padding-top: 5rem;
+    margin-top: 5em;
     background-color: #345A61;
     color: #86EBE6;
-    height:200px;
+    min-height:200px;
 }
 
 .page-section {
@@ -10243,4 +10245,9 @@ header.masthead {
     border: 1px solid grey;
     border-radius: 7px;
     box-shadow: 5px 5px 5px grey;
+}
+
+.img-nutriscore-header{
+    height: 50px;
+    margin-left: 10px;
 }

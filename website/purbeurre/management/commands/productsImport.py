@@ -1,6 +1,6 @@
 from django.core.management.base import BaseCommand, CommandError
 from purbeurre.openfoodfact import OpenFoodFacts
-from purbeurre.models import Brand, Category, Product, ProductBrand, ProductCategory, ProductStore, Store
+from purbeurre.models import Category, Product
 
 
 class Command(BaseCommand):
@@ -8,6 +8,11 @@ class Command(BaseCommand):
 
     def add_arguments(self, parser):
         parser.add_argument('categories', nargs='+', type=str)
+
+    def search_nutriment(self, product, key):
+        if 'nutriments' in product and key in product['nutriments']:
+            return float(product['nutriments'][key])
+        return None
 
     def handle(self, *args, **options):
         for category in options['categories']:
@@ -21,65 +26,35 @@ class Command(BaseCommand):
                          and product['code'] != ""\
                          and 'nutriscore_score' in product\
                          and product['nutriscore_score'] != ""\
-                         and 'nutriscore_score' in product\
-                         and 'image_front_url' in product:
+                         and 'image_front_url' in product\
+                         and 'categories' in product\
+                         and product['categories_lc'] == 'fr':
 
-                    nutriscore_score = openFoodFacts.decode_nutriscore(product['nutriscore_score'])
+                    category_name = product['categories'].split(',')[-1].strip()
+                    category, created_category = Category.objects.get_or_create(
+                        name=category_name,
+                        defaults={
+                            'name': category_name
+                        },
+                    )
 
-                    if nutriscore_score is not None:
-                        dbProduct, createdProduct = Product.objects.update_or_create(
-                            code=product['code'],
-                            defaults={
-                                'name': product['product_name_fr'].strip(),
-                                'nutri_score': nutriscore_score,
-                                'link': product['url'] if 'url' in product and product['url'] != '' else None,
-                                'quantity': product['quantity'] if 'quantity' in product else None,
-                                'image': product['image_front_url'] if 'image_front_url' in product else None,
-                            },
-                        )
-
-                        if 'categories' in product:
-                            for category in product['categories'].split(','):
-                                category = category.strip()
-                                if category != '':
-                                    dbCategory, createdCategory = Category.objects.get_or_create(
-                                        name=category,
-                                        defaults={
-                                            'name': category
-                                        },
-                                    )
-                                    ProductCategory.objects.get_or_create(
-                                        product=dbProduct,
-                                        category=dbCategory
-                                    )
-
-                        if 'brands' in product:
-                            for brand in product['brands'].split(','):
-                                brand = brand.strip()
-                                if brand != '':
-                                    dbBrand, createdBrand = Brand.objects.get_or_create(
-                                        name=brand,
-                                        defaults={
-                                            'name': brand
-                                        },
-                                    )
-                                    ProductBrand.objects.get_or_create(
-                                        product=dbProduct,
-                                        brand=dbBrand
-                                    )
-
-                        if 'stores' in product:
-                            for store in product['stores'].split(','):
-                                store = store.strip()
-                                if store != '':
-                                    dbStore, createdStore = Store.objects.get_or_create(
-                                        name=store,
-                                        defaults={
-                                            'name': store
-                                        },
-                                    )
-                                    ProductStore.objects.get_or_create(
-                                        product=dbProduct,
-                                        store=dbStore
-                                    )
-
+                    Product.objects.update_or_create(
+                        code=product['code'],
+                        defaults={
+                            'name': product['product_name_fr'].strip(),
+                            'nutri_score': openFoodFacts.decode_nutriscore(product['nutriscore_score']),
+                            'link': product['url'] if 'url' in product and product['url'] != '' else None,
+                            'quantity': product['quantity'] if 'quantity' in product else None,
+                            'image': product['image_front_url'] if 'image_front_url' in product else None,
+                            'category': category,
+                            'nutriment_energy': self.search_nutriment(product, 'energy_100g'),
+                            'nutriment_sugars': self.search_nutriment(product, 'sugars_100g'),
+                            'nutriment_salt': self.search_nutriment(product, 'salt_100g'),
+                            'nutriment_fat': self.search_nutriment(product, 'fat_100g'),
+                            'nutriment_saturated_fat': self.search_nutriment(product, 'saturated-fat_100g'),
+                            'nutriment_sodium': self.search_nutriment(product, 'sodium_100g'),
+                            'nutriment_proteins': self.search_nutriment(product, 'proteins_100g'),
+                            'nutriment_carbohydrates': self.search_nutriment(product, 'carbohydrates_100g'),
+                            'nutriment_fiber': self.search_nutriment(product, 'fiber_100g'),
+                        },
+                    )
