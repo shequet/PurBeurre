@@ -29,18 +29,18 @@
         <hr class="divider my-2" />
         <br>
          <div class="row row-cols-1 row-cols-md-3">
-        {% for product in substitute_products %}
+        {% for substitute_product in substitute_products %}
 
            <div class="col">
                 <div class="card m-4">
-                  <a href="{% url 'product_detail' product.id %}">
-                      <img src="{{ product.image }}" class="card-img-top img-product" alt="...">
-                      <img src="https://static.openfoodfacts.org/images/misc/nutriscore-{{ product.nutri_score|lower }}.svg" alt="Note nutritionnelle NutriScore : {{ product.nutri_score }}" class="img-nutriscore">
+                  <a href="{% url 'product_detail' substitute_product.id %}" class="a-img-product">
+                      <img src="{{ substitute_product.image }}" class="img-product-min" alt="...">
+                      <img src="https://static.openfoodfacts.org/images/misc/nutriscore-{{ substitute_product.nutri_score|lower }}.svg" alt="Note nutritionnelle NutriScore : {{ substitute_product.nutri_score }}" class="img-nutriscore">
                   </a>
                   <div class="card-body text-center">
-                    <h6 class="card-title">{{ product.name|truncatechars:25 }}</h6>
+                    <h6 class="card-title">{{ substitute_product.name|truncatechars:25 }}</h6>
                     {% if user.is_authenticated %}
-                      <a href="#" class="btn btn-primary"><i class="fa fa-save"></i> Sauvegarder</a>
+                      <a href="{% url 'product_substitute_add' product.id substitute_product.id %}" class="btn btn-primary"><i class="fa fa-save"></i> Sauvegarder</a>
                     {% endif %}
                   </div>
                 </div>

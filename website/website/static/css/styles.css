@@ -10230,8 +10230,19 @@ header.masthead {
     margin-top: 2em;
 }
 
+a.a-img-product{
+    margin:auto;
+}
+
 .img-product{
-    max-height: 300px;
+    max-height: 200px;
+    max-width: 2000px;
+}
+
+.img-product-min{
+    margin-top: 15px;
+    max-height: 200px;
+    max-width: 2000px;
 }
 
 .img-nutriscore{
@@ -10246,6 +10257,7 @@ header.masthead {
     border-radius: 7px;
     box-shadow: 5px 5px 5px grey;
 }
+
 
 .img-nutriscore-header{
     height: 50px;

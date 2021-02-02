@@ -1,0 +1,40 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title_page %}Mes aliments{% endblock %}
+
+
+{% block content %}
+
+
+<header class="masthead">
+
+    <section class="page-section">
+        <div class="container bg-white">
+             <div class="container bg-white p-5 rounded">
+            <h2 class="text-center mt-0">Mes aliments de substitution</h2>
+            <hr class="divider my-2" />
+        </div>
+            <div class="row row-cols-1 row-cols-md-3">
+            {% for substitute_product in substitute_products %}
+               <div class="col">
+                    <div class="card m-4">
+                       <a href="{% url 'product_detail' substitute_product.substitute_product.id %}" class="a-img-product">
+                          <img src="{{ substitute_product.substitute_product.image }}" class="img-product-min" alt="...">
+                          <img src="https://static.openfoodfacts.org/images/misc/nutriscore-{{ substitute_product.substitute_product.nutri_score|lower }}.svg" alt="Note nutritionnelle NutriScore : {{ substitute_product.substitute_product.nutri_score }}" class="img-nutriscore">
+                      </a>
+                      <div class="card-body text-center">
+                        <h6 class="card-title">{{ substitute_product.substitute_product.name|truncatechars:25 }}</h6>
+                          <a href="{% url 'product_substitute_delete' substitute_product.product.id substitute_product.substitute_product.id %}" class="btn btn-primary"><i class="fa fa-trash"></i> Supprimer</a>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+            </div>
+
+        </div>
+    </section>
+</header>
+
+
+{% endblock %}

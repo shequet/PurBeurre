@@ -6,16 +6,18 @@
 
 {% block content %}
 <header class="masthead">
-    <div class="container bg-color-biscuit p-5 rounded">
-        <h2 class="text-center mt-0">Inscription</h2>
-        <hr class="divider my-2" />
-        <form method="post">
-          {% csrf_token %}
-          {{ form|crispy }}
-          <button type="submit" class="btn btn-primary">Inscription</button>
-        </form>
-
-    </div>
+     <section class="page-section">
+        <div class="container bg-white">
+             <div class="container bg-white p-5 rounded">
+            <h2 class="text-center mt-0">Inscription</h2>
+            <hr class="divider my-2" />
+        </div>
+            <form method="post" novalidate class="mb-5 p-5">
+                {% csrf_token %}
+                {{ form|crispy }}
+                <button type="submit" class="btn btn-primary">Inscription</button>
+            </form>
+        </div>
+    </section>
 </header>
-
 {% endblock %}

@@ -1,8 +1,7 @@
 from django.contrib.auth.decorators import login_required
-from django.shortcuts import render
-from django.db.models import Count
+from django.shortcuts import render, redirect
 from .forms import ProductSearchForm
-from .models import Product, Category
+from .models import Product, ProductSubstitute
 
 
 def index(request):
@@ -19,8 +18,40 @@ def contact(request):
 
 
 @login_required
-def myfood(request):
-    return render(request, 'myfood.html')
+def product_substitute(request):
+    user = request.user
+    substitute_products = ProductSubstitute.objects.filter(user=user)
+
+    return render(request, 'product_substitute.html', {
+        'substitute_products': substitute_products
+    })
+
+
+@login_required
+def product_substitute_add(request, product_id, substitute_product_id):
+    user = request.user
+    ProductSubstitute.objects.get_or_create(
+        product_id=product_id,
+        substitute_product_id=substitute_product_id,
+        user=user,
+        defaults={
+            'product_id': product_id,
+            'substitute_product_id': substitute_product_id,
+            'user': user
+        },
+    )
+    return redirect('product_substitute')
+
+
+@login_required
+def product_substitute_delete(request, product_id, substitute_product_id):
+    user = request.user
+    ProductSubstitute.objects.filter(
+        product_id=product_id,
+        substitute_product_id=substitute_product_id,
+        user=user
+    ).delete()
+    return redirect('product_substitute')
 
 
 def product_detail(request, product_id):

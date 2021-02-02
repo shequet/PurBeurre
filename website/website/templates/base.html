@@ -38,7 +38,7 @@
 
                         {% if user.is_authenticated %}
                             <li class="nav-item"><a class="nav-link {% if request.path == '/accounts/profile/' %}active{% endif %}" href="{% url 'profile' %}" title="Mon compte"><i class="fa fa-user h3"></i></a></li>
-                            <li class="nav-item"><a class="nav-link {% if request.path == '/myfood/' %}active{% endif %}" href="{% url 'myfood' %}" title="Mes aliments"><i class="fa fa-carrot h3"></i></a></li>
+                            <li class="nav-item"><a class="nav-link {% if request.path == '/product_substitute/' %}active{% endif %}" href="{% url 'product_substitute' %}" title="Mes aliments"><i class="fa fa-carrot h3"></i></a></li>
                             <li class="nav-item"><a class="nav-link {% if request.path == '/accounts/logout/' %}active{% endif %}" href="{% url 'logout' %}" title="Deconnexion"><i class="fa fa-sign-out-alt h3"></i></a></li>
                         {% else %}
                             <li class="nav-item"><a class="nav-link {% if request.path == '/accounts/login/' %}active{% endif %}" href="{% url 'login' %}" title="Connexion"><i class="fa fa-user-shield h3"></i></a></li>
