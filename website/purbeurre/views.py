@@ -1,11 +1,21 @@
 from django.contrib.auth.decorators import login_required
-from django.shortcuts import redirect, render
+from django.shortcuts import render
+from django.db.models import Count
 from .forms import ProductSearchForm
+from .models import Product, Category
 
 
 def index(request):
     form = ProductSearchForm
     return render(request, 'home.html', {'form': form})
+
+
+def legal_mentions(request):
+    return render(request, 'legal_mentions.html')
+
+
+def contact(request):
+    return render(request, 'contact.html')
 
 
 @login_required
@@ -15,51 +25,26 @@ def myfood(request):
 
 def product_detail(request, product_id):
     return render(request, 'product_detail.html', {
-        'product': {
-            'id': product_id,
-            'name': 'Pizza surgelée',
-            'description': 'blabla',
-            'photo': 'https://static.openfoodfacts.org/images/products/327/016/071/7323/front_fr.27.200.jpg',
-            'score': 'B'
-        }
+        'product': Product.objects.get(pk=product_id)
     })
-
 
 
 def product_search(request):
     if request.method == "POST":
         form = ProductSearchForm(request.POST)
         if form.is_valid():
+            name = request.POST.get('name', '')
+            substitute_products = []
+            product = Product.objects.filter(name__contains=name).first()
+
+            if product is not None:
+                substitute_products = Product.objects.filter(
+                    category=product.category,
+                    nutri_score__lt=product.nutri_score
+                ).order_by('nutri_score', )[:50]
+
             return render(request, 'product_search.html', {
                 'search': request.POST.get('name', ''),
-                'foods': [
-                    {
-                        'id': 1,
-                        'name': 'Pizza surgelée',
-                        'description': 'blabla',
-                        'photo': 'https://static.openfoodfacts.org/images/products/327/016/071/7323/front_fr.27.200.jpg',
-                        'score': 'B'
-                    },
-                    {
-                        'id': 2,
-                        'name': 'Pizza surgelée',
-                        'description': 'blabla',
-                        'photo': 'https://static.openfoodfacts.org/images/products/370/000/926/7813/front_fr.26.200.jpg',
-                        'score': 'B'
-                    },
-                    {
-                        'id': 3,
-                        'name': 'Pizza surgelée',
-                        'description': 'blabla',
-                        'photo': 'https://static.openfoodfacts.org/images/products/327/016/071/7323/front_fr.27.200.jpg',
-                        'score': 'B'
-                    },
-                    {
-                        'id': 4,
-                        'name': 'Pizza surgelée',
-                        'description': 'blabla',
-                        'photo': 'https://static.openfoodfacts.org/images/products/327/016/071/7323/front_fr.27.200.jpg',
-                        'score': 'B'
-                    }
-                ]
+                'product': product,
+                'substitute_products': substitute_products,
             })

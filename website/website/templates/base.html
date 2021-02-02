@@ -27,7 +27,7 @@
             <div class="container">
                 <img class="logo" src="{% static 'images/logo_pur_beurre.png' %}" />
 
-                <a class="navbar-brand js-scroll-trigger" href="/">Pur Beurre</a>
+                <a class="navbar-brand js-scroll-trigger" href="/"><span class="color-rigolo">Pur Beurre</span></a>
                 <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
                 <div class="collapse navbar-collapse" id="navbarResponsive">
                     <ul class="navbar-nav ml-auto my-2 my-lg-0">
@@ -53,7 +53,7 @@
 
         <!-- Footer-->
         <footer class="bg-light py-5">
-            <div class="container"><div class="small text-center text-muted">Mentiens Légales - Contact</div></div>
+            <div class="container"><div class="small text-center text-muted"><a href="{% url 'legal_mentions' %}">Mentiens Légales</a> - <a href="{% url 'contact' %}">Contact</a></div></div>
         </footer>
         <!-- Bootstrap core JS-->
         <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>

@@ -5,31 +5,101 @@
 
 
 {% block content %}
-<header class="secondhead">
-    <div class="container">
-        <h2 class="text-center mt-0">{{ product.name }}</h2>
-        <hr class="divider my-2" />
+<header class="secondhead" style="background-image: url('{{ product.image }}');">
+    <div class="container" >
+        <h1 class="text-center text-uppercase font-weight-bold color-rigolo shadow"><span class="well">{{ product.name }} {{ product.quantity }}</span></h1>
     </div>
 </header>
 
 <section class="page-section">
     <div class="container">
+
         <div class="row">
             <div class="col-lg-6 col-md-12 text-center">
                 <div class="mt-5">
-                    <h2>Nutriscore</h2>
-                    <h3>ABCDE</h3>
+                   <img src="https://static.openfoodfacts.org/images/misc/nutriscore-{{ product.nutri_score|lower }}.svg" alt="Note nutritionnelle NutriScore : {{ product.nutri_score }}">
                 </div>
             </div>
-            <div class="col-lg-6 col-md-12 text-center">
+
+            <div class="col-lg-6 col-md-12">
                 <div class="mt-5">
-                    <h2>Repères nitritionnels pour 100g</h2>
+                    <h2>Repères nutritionnels pour 100 g</h2>
+                    <table class="table">
+                      <tbody>
+                        {% if product.nutriment_energy %}
+                        <tr>
+                          <td>Energie:</td>
+                          <td class="text-right">{{ product.nutriment_energy }} kj</td>
+                        </tr>
+                        {% endif %}
+
+
+
+                      {% if product.nutriment_salt %}
+                        <tr>
+                          <td>Sel:</td>
+                          <td class="text-right">{{ product.nutriment_salt }} g</td>
+                        </tr>
+                        {% endif %}
+
+                        {% if product.nutriment_fat %}
+                        <tr>
+                          <td>Matières grasses / Lipides:</td>
+                          <td class="text-right">{{ product.nutriment_fat }} g</td>
+                        </tr>
+                        {% endif %}
+
+                        {% if product.nutriment_saturated_fat %}
+                        <tr>
+                          <td>Acides gras saturés:</td>
+                          <td class="text-right">{{ product.nutriment_saturated_fat }} g</td>
+                        </tr>
+                        {% endif %}
+
+                       {% if product.nutriment_sodium %}
+                        <tr>
+                          <td>Sodium:</td>
+                          <td class="text-right">{{ product.nutriment_sodium }} g</td>
+                        </tr>
+                        {% endif %}
+
+                      {% if product.nutriment_proteins %}
+                        <tr>
+                          <td>Protéines:</td>
+                          <td class="text-right">{{ product.nutriment_proteins }} g</td>
+                        </tr>
+                        {% endif %}
+
+                      {% if product.nutriment_carbohydrates %}
+                        <tr>
+                          <td>Glucides:</td>
+                          <td class="text-right">{{ product.nutriment_carbohydrates }} g</td>
+                        </tr>
+                        {% endif %}
+
+                       {% if product.nutriment_sugars %}
+                        <tr>
+                          <td>Glucides dont Sucres:</td>
+                          <td class="text-right">{{ product.nutriment_sugars }} g</td>
+                        </tr>
+                        {% endif %}
+
+                      {% if product.nutriment_fiber %}
+                        <tr>
+                          <td>Fibres alimentaires:</td>
+                          <td class="text-right">{{ product.nutriment_fiber }} g</td>
+                        </tr>
+                        {% endif %}
+
+                      </tbody>
+                    </table>
+
                 </div>
             </div>
         </div>
     </div>
     <div class="text-center">
-       <a href="" class="btn btn-primary">Voir la fiche d'OpenFoodFacts</a>
+       <a href="{{ product.link }}" class="btn btn-primary" target="_blank">Voir la fiche d'OpenFoodFacts</a>
     </div>
 
 
