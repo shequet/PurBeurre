@@ -23,11 +23,12 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = 'zl#n_$w!n@jq=*5h5yhcrcilg&pj_k9@2842aj^cpj@iv=z%wd'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
 ALLOWED_HOSTS = [
     'hidden-earth-51371.herokuapp.com',
     '127.0.0.1',
+    'localhost',
 ]
 
 # Application definition
@@ -123,12 +124,12 @@ USE_TZ = True
 
 PROJECT_ROOT = os.path.dirname(os.path.abspath(__file__))
 
-STATIC_URL = '/static/'
+STATIC_URL = '/allstatic/'
 
-STATIC_ROOT = os.path.join(PROJECT_ROOT, 'website/static')
+STATIC_ROOT = os.path.join(BASE_DIR, 'allstatic/')
 
 STATICFILES_DIRS = [
-    BASE_DIR + "/website/static",
+    BASE_DIR + "/static",
 ]
 
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
