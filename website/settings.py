@@ -23,13 +23,12 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = 'zl#n_$w!n@jq=*5h5yhcrcilg&pj_k9@2842aj^cpj@iv=z%wd'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 ALLOWED_HOSTS = [
     'hidden-earth-51371.herokuapp.com',
     '127.0.0.1',
 ]
-
 
 # Application definition
 
