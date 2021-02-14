@@ -15,7 +15,7 @@ class Category(models.Model):
 
 class Product(models.Model):
     name = models.CharField(null=False, max_length=128, db_index=True)
-    code = models.CharField(null=False, max_length=13, unique=True)
+    code = models.CharField(null=False, max_length=128, unique=True)
     link = models.CharField(null=True, max_length=1024)
     quantity = models.CharField(null=True, max_length=128)
     nutri_score = models.CharField(null=False, max_length=1)
