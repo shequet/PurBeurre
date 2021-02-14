@@ -32,7 +32,7 @@ class OpenFoodFacts:
         elif nutri_score >= 19:
             return 'E'
         else:
-            return None
+            return 'E'
 
     def call_api(self, url, page=1, products=[]):
         """ Call Api open food facts"""
