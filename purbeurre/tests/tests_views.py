@@ -8,17 +8,29 @@ class TestLegalIndexView(TestCase):
         response = self.client.get('/')
         self.assertEqual(response.status_code, 200)
 
+    def test_index_contain_view(self):
+        response = self.client.get('/')
+        self.assertContains(response, 'Colette et Remy')
+
 
 class TestLegalMentionsView(TestCase):
     def test_legal_mentions_view(self):
         response = self.client.get('/legal_mentions/')
         self.assertEqual(response.status_code, 200)
 
+    def test_legal_contain_view(self):
+        response = self.client.get('/legal_mentions/')
+        self.assertContains(response, 'Mentions Légales Site Internet')
+
 
 class TestLegalContactView(TestCase):
     def test_contact_view(self):
         response = self.client.get('/contact/')
         self.assertEqual(response.status_code, 200)
+
+    def test_contact_contain_view(self):
+        response = self.client.get('/contact/')
+        self.assertContains(response, 'contact@purbeurre.fr')
 
 
 class TestProductView(TestCase):
@@ -92,11 +104,23 @@ class TestProductView(TestCase):
         })
         self.assertEqual(response.status_code, 200)
 
+    def test_product_search_contain_view(self):
+        response = self.client.post('/product/search/', {
+            'name': 'nutella'
+        })
+        self.assertContains(response, 'nutella')
+
     def test_product_detail(self):
         response = self.client.post('/product/{product_id}/'.format(
             product_id=self.product_good.id
         ))
         self.assertEqual(response.status_code, 200)
+
+    def test_product_contain_detail(self):
+        response = self.client.post('/product/{product_id}/'.format(
+            product_id=self.product_good.id
+        ))
+        self.assertContains(response, self.product_good.link)
 
     def test_product_substitute_add(self):
         self.client.login(

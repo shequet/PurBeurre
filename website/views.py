@@ -1,4 +1,5 @@
 from django.contrib.auth import login
+from django.contrib.auth.decorators import login_required
 from django.shortcuts import redirect, render
 from django.urls import reverse
 from .forms import CustomUserCreationForm
@@ -18,5 +19,6 @@ def register(request):
             return redirect(reverse('profile'))
 
 
+@login_required
 def profile(request):
     return render(request, 'registration/profile.html')
