@@ -21,6 +21,8 @@ class OpenFoodFacts:
     def decode_nutriscore(self, nutri_score):
         """ Decode nutriscore """
 
+        nutri_score = int(nutri_score)
+
         if nutri_score < -1:
             return 'A'
         elif 0 <= nutri_score <= 2:
@@ -49,9 +51,6 @@ class OpenFoodFacts:
             data = r.json()
             if len(data['products']) > 0:
                 products.extend(data['products'])
-                print('--Page:[{page}]--Total products:[{products}]--'.format(
-                    page=page,
-                    products=len(products)))
                 return self.call_api(
                     url=url,
                     page=int(data['page']) + 1,
