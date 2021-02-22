@@ -6,20 +6,26 @@ from django.conf import settings
 
 
 class OpenFoodFacts:
-    """ OpenFoodFacts class """
+    """
+    The OpenFoodFacts connector
+    """
 
     def __init__(self):
         self.url = settings.OPENFOODFACTS_URL
 
     def get_category(self, category):
-        """ get products for category"""
+        """
+        get products for category
+        """
 
         return self.call_api('{url}/categorie/{category}.json'.format(
             url=self.url,
             category=category))
 
     def decode_nutriscore(self, nutri_score):
-        """ Decode nutriscore """
+        """
+        Decode nutriscore
+        """
 
         nutri_score = int(nutri_score)
 
@@ -37,7 +43,9 @@ class OpenFoodFacts:
             return 'E'
 
     def call_api(self, url, page=1, products=[]):
-        """ Call Api open food facts"""
+        """
+        Call Api open food facts
+        """
 
         r = requests.get(
             url,

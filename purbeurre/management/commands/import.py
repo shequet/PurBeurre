@@ -4,17 +4,29 @@ from purbeurre.models import Category, Product
 
 
 class Command(BaseCommand):
+    """
+    Command to import products
+    """
+
     help = 'Importing products from OpenFoodFacts'
 
     def add_arguments(self, parser):
         parser.add_argument('categories', nargs='+', type=str)
 
     def search_nutriment(self, product, key):
+        """
+        Search if the element is present
+        """
+
         if 'nutriments' in product and key in product['nutriments']:
             return float(product['nutriments'][key])
         return None
 
     def handle(self, *args, **options):
+        """
+        Command processing
+        """
+
         for category in options['categories']:
             openFoodFacts = OpenFoodFacts()
             products = openFoodFacts.get_category(category)
