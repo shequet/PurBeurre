@@ -1,3 +1,7 @@
+"""
+website app views document
+"""
+
 from django.contrib.auth import login
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import redirect, render
@@ -6,6 +10,13 @@ from .forms import CustomUserCreationForm
 
 
 def register(request):
+    """
+    Display register user of the site
+
+    Returns:
+        template : "registration/register.html"
+    """
+
     if request.method == "GET":
         return render(
             request, "registration/register.html",
@@ -21,4 +32,11 @@ def register(request):
 
 @login_required
 def profile(request):
+    """
+    Display user profile of the site
+
+    Returns:
+       template : "registration/profile.html"
+    """
+
     return render(request, 'registration/profile.html')
