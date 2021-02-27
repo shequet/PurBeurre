@@ -22,14 +22,14 @@ python manage.py runserver
 
 ### Lancer les tests
 
-Adpater l'exclusion de l'environnement virtuel  ``'venv/*'``
+Adapater l'exclusion de l'environnement virtuel  ``'venv/*'``
 ```shell
 coverage report --omit 'venv/*' manage.py test
 ```
 
 ### Valider la couverture des tests ~97%
 
-Adpater l'exclusion de l'environnement virtuel  ``'venv/*'``
+Adapater l'exclusion de l'environnement virtuel  ``'venv/*'``
 ```shell
 coverage report --omit 'venv/*'
 ```
