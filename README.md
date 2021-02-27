@@ -21,9 +21,19 @@ python manage.py runserver
 ```
 
 ### Lancer les tests
+
+Adpater l'exclusion de l'environnement virtuel  ``'venv/*'``
 ```shell
-python manage.py test
+coverage report --omit 'venv/*' manage.py test
 ```
+
+### Valider la couverture des tests ~97%
+
+Adpater l'exclusion de l'environnement virtuel  ``'venv/*'``
+```shell
+coverage report --omit 'venv/*'
+```
+![Accueil](doc/screen08.png)
 
 ### Démo en ligne sur herokuapp
 
