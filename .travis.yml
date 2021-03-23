@@ -11,4 +11,5 @@ services:
 env: DJANGO_SETTINGS_MODULE=website.settings_travis
 
 script:
+  - mkdir staticfiles
   - python manage.py test
