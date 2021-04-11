@@ -10257,6 +10257,18 @@ a.a-img-product{
     border-radius: 7px;
     box-shadow: 5px 5px 5px grey;
 }
+.img-ecoscore{
+    max-width: 100%;
+    top: 0;
+    position: absolute;
+    right: -10px;
+    top: 60px;
+    height: 2.5em;
+    background-color: white;
+    border: 1px solid grey;
+    border-radius: 7px;
+    box-shadow: 5px 5px 5px grey;
+}
 
 
 .img-nutriscore-header{

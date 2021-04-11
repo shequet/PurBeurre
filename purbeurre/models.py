@@ -60,6 +60,7 @@ class Product(models.Model):
     link = models.CharField(null=True, max_length=1024)
     quantity = models.CharField(null=True, max_length=128)
     nutri_score = models.CharField(null=False, max_length=1)
+    eco_score = models.CharField(null=True, max_length=1)
     image = models.CharField(null=True, max_length=1024)
 
     nutriment_energy = models.FloatField(null=True)
