@@ -55,6 +55,7 @@ class Command(BaseCommand):
                         defaults={
                             'name': product['product_name_fr'].strip(),
                             'nutri_score': openFoodFacts.decode_nutriscore(product['nutriscore_score']),
+                            'eco_score': product['ecoscore_grade'] if 'ecoscore_grade' in product else None,
                             'link': product['url'] if 'url' in product and product['url'] != '' else None,
                             'quantity': product['quantity'] if 'quantity' in product else None,
                             'image': product['image_front_url'] if 'image_front_url' in product else None,

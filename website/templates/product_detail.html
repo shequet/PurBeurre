@@ -19,6 +19,14 @@
                 <div class="mt-5">
                    <img src="https://static.openfoodfacts.org/images/misc/nutriscore-{{ product.nutri_score|lower }}.svg" alt="Note nutritionnelle NutriScore : {{ product.nutri_score }}">
                 </div>
+
+                {% if product.eco_score %}
+                <div class="mt-5">
+                <img src="https://static.openfoodfacts.org/images/attributes/ecoscore-{{ product.eco_score|lower }}.svg"
+                 alt="Note Eco-Score : {{ product.eco_score }}"
+                 class="img-ecoscore-header">
+                </div>
+                {% endif %}
             </div>
 
             <div class="col-lg-6 col-md-12">

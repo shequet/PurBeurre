@@ -13,7 +13,14 @@
             <img src="https://static.openfoodfacts.org/images/misc/nutriscore-{{ product.nutri_score|lower }}.svg"
              alt="Note nutritionnelle NutriScore : {{ product.nutri_score }}"
              class="img-nutriscore-header">
-                </span>
+
+                {% if product.eco_score %}
+                <img src="https://static.openfoodfacts.org/images/icons/ecoscore-{{ product.eco_score|lower }}.svg"
+                 alt="Note Eco-Score : {{ product.eco_score }}"
+                 class="img-nutriscore-header">
+
+                {% endif %}
+             </span>
             {% else %}
                 {{ search }}
             {% endif %}
@@ -36,6 +43,9 @@
                   <a href="{% url 'product_detail' substitute_product.id %}" class="a-img-product">
                       <img src="{{ substitute_product.image }}" class="img-product-min" alt="...">
                       <img src="https://static.openfoodfacts.org/images/misc/nutriscore-{{ substitute_product.nutri_score|lower }}.svg" alt="Note nutritionnelle NutriScore : {{ substitute_product.nutri_score }}" class="img-nutriscore">
+                      {% if substitute_product.eco_score %}
+                        <img src="https://static.openfoodfacts.org/images/icons/ecoscore-{{ substitute_product.eco_score|lower }}.svg" alt="Note Eco Score : {{ substitute_product.eco_score }}" class="img-ecoscore">
+                      {% endif %}
                   </a>
                   <div class="card-body text-center">
                     <h6 class="card-title">{{ substitute_product.name|truncatechars:25 }}</h6>
