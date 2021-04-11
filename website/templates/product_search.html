@@ -5,7 +5,7 @@
 
 
 {% block content %}
-<header class="secondhead" style="background-image: url('{{ product.image }}');">
+<header class="secondhead" {% if product %}style="background-image: url('{{ product.image }}');" {% endif %}>
 
         <h1 class="text-center text-uppercase font-weight-bold color-rigolo shadow">
             {% if substitute_products|length > 1 %}

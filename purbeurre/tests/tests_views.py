@@ -104,6 +104,12 @@ class TestProductView(TestCase):
         })
         self.assertEqual(response.status_code, 200)
 
+    def test_product_search_unknown_in_database(self):
+        response = self.client.post('/product/search/', {
+            'name': 'product unknown'
+        })
+        self.assertEqual(response.status_code, 200)
+
     def test_product_search_contain_view(self):
         response = self.client.post('/product/search/', {
             'name': 'nutella'
